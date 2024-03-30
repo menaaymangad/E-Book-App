@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/admin_home_page.dart';
 import 'package:flutter_ebook_website/pages/customer_pages/home_page.dart';
 import 'package:flutter_ebook_website/pages/register_page.dart';
@@ -34,7 +32,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     final model = Provider.of<ModalHud>(context);
-    final adminModel = Provider.of<AdminModel>(context);
+   
 
     return Scaffold(
       backgroundColor: kMainColor,

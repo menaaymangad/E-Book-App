@@ -43,7 +43,7 @@ class EBookStore extends StatelessWidget {
           HomePage.id: (context) => const HomePage(),
           AdminHomePage.id: (context) => const AdminHomePage(),
           AddProductPage.id:(context) => AddProductPage(),
-          EditProductPage.id:(context) =>EditProductPage(),
+          EditProductPage.id:(context) => EditProductPage(),
         },
         initialRoute: LoginPage.id,
       ),
