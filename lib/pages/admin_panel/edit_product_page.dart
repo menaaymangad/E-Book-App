@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ebook_website/constants/strings_constants.dart';
 import 'package:flutter_ebook_website/models/product_model.dart';
 import 'package:flutter_ebook_website/services/stroe_product.dart';
-import 'package:flutter_ebook_website/widgets/custom_button.dart';
 import 'package:flutter_ebook_website/widgets/custom_text_field.dart';
 
-// ignore: must_be_immutable
-class AddProductPage extends StatelessWidget {
-  static String id = 'AddProductPage';
+import '../../widgets/custom_button.dart';
+
+class EditProductPage extends StatelessWidget {
+  EditProductPage({super.key});
+  static String id = 'editProductPage';
+
   String? name, description, price, category, location;
   final GlobalKey<FormState> _globalKey = GlobalKey();
-
-  AddProductPage({super.key});
+  final Store store = Store();
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+    ProductModel productModel =
+        ModalRoute.of(context)!.settings.arguments as ProductModel;
     return Scaffold(
       body: Form(
         key: _globalKey,
@@ -73,18 +77,17 @@ class AddProductPage extends StatelessWidget {
                   function: () {
                     if (_globalKey.currentState!.validate()) {
                       _globalKey.currentState?.save();
-                      final addProduct = Store();
-                      addProduct.addProduct(ProductModel(
-                          productName: name!,
-                          productDescription: description!,
-                          productPrice: price!,
-                          productLocation: location!,
-                          productCategory: category!));
+                      store.editProduct((
+                        kProductName: name,
+                        kProductCategory: category,
+                        kProductDescription: description,
+                        kProductPrice: price,
+                        kProductLocation: location,
+                      ), productModel.productId);
                       Navigator.pop(context);
                     }
                   },
                 ),
-                
               ],
             ),
           ),

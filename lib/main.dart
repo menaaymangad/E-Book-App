@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/add_product_page.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/admin_home_page.dart';
-import 'package:flutter_ebook_website/pages/admin_panel/edit_product.dart';
+import 'package:flutter_ebook_website/pages/admin_panel/edit_product_page.dart';
+import 'package:flutter_ebook_website/pages/admin_panel/manage_product.dart';
 
 import 'package:flutter_ebook_website/pages/customer_pages/home_page.dart';
 import 'package:flutter_ebook_website/pages/login_page.dart';
@@ -33,7 +34,7 @@ class EBookStore extends StatelessWidget {
         ),
         ChangeNotifierProvider<AdminModel>(
           create: (context) => AdminModel(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -42,8 +43,9 @@ class EBookStore extends StatelessWidget {
           RegisterPage.id: (context) => RegisterPage(),
           HomePage.id: (context) => const HomePage(),
           AdminHomePage.id: (context) => const AdminHomePage(),
-          AddProductPage.id:(context) => AddProductPage(),
-          EditProductPage.id:(context) => EditProductPage(),
+          AddProductPage.id: (context) => AddProductPage(),
+          ManageProductPage.id: (context) => ManageProductPage(),
+          EditProductPage.id:(context) =>  EditProductPage(),
         },
         initialRoute: LoginPage.id,
       ),

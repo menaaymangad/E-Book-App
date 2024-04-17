@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/add_product_page.dart';
-import 'package:flutter_ebook_website/pages/admin_panel/edit_product.dart';
+import 'package:flutter_ebook_website/pages/admin_panel/manage_product.dart';
 import 'package:flutter_ebook_website/widgets/custom_button.dart';
 
 class AdminHomePage extends StatelessWidget {
@@ -26,7 +26,7 @@ class AdminHomePage extends StatelessWidget {
           CustomButton(
             buttonName: 'Edit Product',
             function: () {
-              Navigator.pushNamed(context, EditProductPage.id);
+              Navigator.pushNamed(context, ManageProductPage.id);
             },
           ),
           SizedBox(

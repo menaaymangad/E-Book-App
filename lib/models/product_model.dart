@@ -8,15 +8,18 @@ class ProductModel {
   String productPrice;
   String productLocation;
   String productCategory;
+  String? productId;
   ProductModel(
-      {required this.productName,
+      {this.productId,
+      required this.productName,
       required this.productDescription,
       required this.productPrice,
       required this.productLocation,
       required this.productCategory});
   factory ProductModel.fromFirestore(DocumentSnapshot doc) {
-    Map data = doc.data() as Map<String, dynamic>;
+    var data = doc.data() as Map<String, dynamic>;
     return ProductModel(
+        productId: doc.id,
         productName: data[kProductName],
         productDescription: data[kProductDescription],
         productPrice: data[kProductPrice],

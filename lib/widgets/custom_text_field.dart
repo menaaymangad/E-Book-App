@@ -46,7 +46,7 @@ class CustomTextField extends StatelessWidget {
         },
         onSaved: function,
         style: const TextStyle(
-          color: Colors.white,
+          color: Colors.black,
         ),
         decoration: InputDecoration(
           filled: true,
