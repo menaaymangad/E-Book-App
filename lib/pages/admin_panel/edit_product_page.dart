@@ -73,17 +73,19 @@ class EditProductPage extends StatelessWidget {
                   height: screenHeight * .05,
                 ),
                 CustomButton(
-                  buttonName: 'Add Product',
+                  buttonName: 'Submit',
                   function: () {
                     if (_globalKey.currentState!.validate()) {
                       _globalKey.currentState?.save();
-                      store.editProduct((
-                        kProductName: name,
-                        kProductCategory: category,
-                        kProductDescription: description,
-                        kProductPrice: price,
-                        kProductLocation: location,
-                      ), productModel.productId);
+                      store.editProduct(
+                          ({
+                            kProductName: name,
+                            kProductCategory: category,
+                            kProductDescription: description,
+                            kProductPrice: price,
+                            kProductLocation: location,
+                          }),
+                          productModel.productId);
                       Navigator.pop(context);
                     }
                   },

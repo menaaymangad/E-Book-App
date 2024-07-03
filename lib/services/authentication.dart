@@ -19,4 +19,8 @@ class Auth {
 
     return credential;
   }
+   Future<User?> getUser() async {
+    final user= await auth.currentUser;
+    return user;
+  }
 }
