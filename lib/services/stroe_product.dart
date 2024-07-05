@@ -21,6 +21,17 @@ class Store {
   Stream<QuerySnapshot> loadProducts() {
     return firestore.collection(kProductsCollection).snapshots();
   }
+   Stream<QuerySnapshot> loadOrders() {
+    return firestore.collection(kOrders).snapshots();
+  }
+
+  Stream<QuerySnapshot> loadOrderDetails(documentId) {
+    return firestore
+        .collection(kOrders)
+        .doc(documentId)
+        .collection(kOrderDetails)
+        .snapshots();
+  }
   //delete product data from firestore
 
   deletePorduct(documentId) {
@@ -29,5 +40,18 @@ class Store {
   //edit product data from firestore
   editProduct(data,documentId){
     firestore.collection(kProductsCollection).doc(documentId).update(data);
+  }
+  storeOrders(data, List<ProductModel> products) {
+    var documentRef = firestore.collection(kOrders).doc();
+    documentRef.set(data);
+    for (var product in products) {
+      documentRef.collection(kOrderDetails).doc().set({
+        kProductName: product.productName,
+        kProductPrice: product.productPrice,
+        kProductQuantity: product.productQuantity,
+        kProductLocation: product.productLocation,
+        kProductCategory: product.productCategory
+      });
+    }
   }
 }

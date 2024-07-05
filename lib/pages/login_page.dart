@@ -7,32 +7,43 @@ import 'package:flutter_ebook_website/pages/register_page.dart';
 import 'package:flutter_ebook_website/provider/admin_model.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/color_constants.dart';
 import '../constants/show_snack_bar.dart';
+import '../constants/strings_constants.dart';
 import '../provider/modal_hud.dart';
 import '../services/authentication.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text_field.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static String id = 'login';
 
+  LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   String? emailAddress;
+
   String? password;
+
   String adminPassword = 'Admin1234';
 
   GlobalKey<FormState> formKey = GlobalKey();
-  final bool _passwordVisible = false;
-  final auth = Auth();
 
-  LoginPage({super.key});
+  final bool _passwordVisible = false;
+
+  final auth = Auth();
+  bool keepMeLoggedIn = false;
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     final model = Provider.of<ModalHud>(context);
-   
 
     return Scaffold(
       backgroundColor: kMainColor,
@@ -79,7 +90,34 @@ class LoginPage extends StatelessWidget {
                 hint: 'Enter your email address',
               ),
               SizedBox(
-                height: height * .03,
+                height: height * .05,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  children: <Widget>[
+                    Theme(
+                      data: ThemeData(unselectedWidgetColor: Colors.white),
+                      child: Checkbox(
+                        checkColor: kSecondaryColor,
+                        activeColor: kMainColor,
+                        value: keepMeLoggedIn,
+                        onChanged: (value) {
+                          setState(() {
+                            keepMeLoggedIn = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    const Text(
+                      'Remmeber Me ',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * .05,
               ),
               CustomTextField(
                 prefixIcon: Icons.lock,
@@ -101,11 +139,28 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: height * .05,
               ),
-              CustomButton(
-                function: () {
-                  _validate(context);
-                },
-                buttonName: 'Login',
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 120),
+                child: Builder(
+                  builder: (context) => TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () {
+                      if (keepMeLoggedIn == true) {
+                        keepUserLoggedIn();
+                      }
+                      _validate(context);
+                    },
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 height: height * .05,
@@ -220,5 +275,10 @@ class LoginPage extends StatelessWidget {
       }
     }
     model.changeIsLoading(false);
+  }
+
+  void keepUserLoggedIn() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool(kKeepMeLoggedIn, keepMeLoggedIn);
   }
 }

@@ -4,8 +4,10 @@ import 'package:flutter_ebook_website/pages/admin_panel/add_product_page.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/admin_home_page.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/edit_product_page.dart';
 import 'package:flutter_ebook_website/pages/admin_panel/manage_product.dart';
+import 'package:flutter_ebook_website/pages/customer_pages/cart_screen.dart';
 
 import 'package:flutter_ebook_website/pages/customer_pages/home_page.dart';
+import 'package:flutter_ebook_website/pages/customer_pages/product_info.dart';
 import 'package:flutter_ebook_website/pages/login_page.dart';
 import 'package:flutter_ebook_website/pages/register_page.dart';
 import 'package:flutter_ebook_website/provider/admin_model.dart';
@@ -46,6 +48,8 @@ class EBookStore extends StatelessWidget {
           AddProductPage.id: (context) => AddProductPage(),
           ManageProductPage.id: (context) => ManageProductPage(),
           EditProductPage.id:(context) =>  EditProductPage(),
+          ProductInfo.id:(context)=> ProductInfo(),
+          CartScreen.id:(context)=> CartScreen()
         },
         initialRoute: LoginPage.id,
       ),
